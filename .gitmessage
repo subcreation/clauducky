@@ -1,0 +1,28 @@
+Enhance Ducky Debug with structured rubber duck methodology
+
+  This comprehensive update transforms the debugging functionality to correctly implement the rubber duck debugging methodology:
+
+  1. Restructured approach to focus on methodical problem explanation:
+     - Added interactive template-guided mode for structured debugging
+     - Created template with sections for expected behavior, evidence, hypotheses
+     - Support for saving, loading, and sharing debugging sessions
+
+  2. Implemented dual-purpose interaction model:
+     - Primary role: Guide methodical explanation to reveal insights
+     - Secondary role: Provide fresh perspective as an outside observer
+     - Enhanced prompts to question assumptions and identify blind spots
+
+  3. Technical improvements:
+     - Proper virtual environment integration
+     - Multiple input modes (interactive, template file, quick mode)
+     - Support for including code files, logs, and other evidence
+     - Improved model selection based on problem complexity
+     - Compare feature to get insights from multiple models
+
+  4. Updated documentation:
+     - Clarified true purpose in CLAUDE.md and CLAUDE.md.vision
+     - Updated ROADMAP.md to reflect current status and future plans
+     - Added comprehensive usage examples and options
+
+  This update aligns the debugging functionality with its true purpose - not just getting advice but facilitating a structured process where the
+  solution often emerges from the methodical explanation itself.

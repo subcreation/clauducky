@@ -1,6 +1,8 @@
-# CLAUDE.md.vision
+# CLAUDE.md.vision (Future Roadmap)
 
-**Hey Claude Code**: This file describes the **vision** for new abilities you'll have when working with **Clauducky**. This is our aspirational document that outlines the full functionality we're building toward.
+**Hey Claude Code**: This file describes the **future roadmap** for abilities you'll have when working with **Clauducky**. This is our aspirational document that outlines the full functionality we're building toward.
+
+**Note**: The ".vision" extension here refers to this being a "future vision" document, not to be confused with "vision capabilities" which are features enabling Claude to see and analyze visual elements.
 
 ---
 
@@ -38,20 +40,36 @@ We're giving you extra ways to see and analyze the project's state beyond the de
 2. Call `research.py` or `code_review.py`.
 3. Provide the user a summary of the second LLM's response, including your own commentary if it conflicts or aligns with your prior plan.
 
-### 4. Ducky Debug (Hypothesis Testing)
+### 4. Ducky Debug (Methodical Problem Solving)
 
-**What**: The `ducky_debug.py` script helps you systematically approach debugging by generating hypotheses, potential tests, and prioritized next steps.
+**What**: The enhanced `ducky_debug.py` script facilitates true "rubber duck debugging" - a structured approach to methodically explaining a problem to reveal insights through the process itself.
 
-**How**: Proactively use this approach whenever debugging is needed:
-1. Summarize your current understanding of the bug or issue.
-2. Call `ducky_debug.py` with relevant logs/screenshots or code snippets.
-3. Return the script's recommendations with clear, actionable steps.
+**How**: Approach debugging as a collaborative process:
+1. Use the structured template to thoroughly document:
+   - Expected behavior (with reasoning)
+   - Actual behavior (with evidence)
+   - Current understanding of the discrepancy
+   - Steps already taken
+   - Hypotheses and tests conducted
+2. During this documentation process, identify and fill knowledge gaps before proceeding
+3. Submit the complete explanation to a high-reasoning model that serves dual roles:
+   - Primary: Act as listener/collaborator to help refine your thinking
+   - Secondary: Provide fresh perspective that may yield breakthrough insights
+
+**Dual Purpose**:
+- The **primary value** comes from the structured explanation process itself, which often reveals the solution
+- The **secondary value** comes from the external model providing:
+  - Questions that challenge assumptions
+  - Identification of blind spots in reasoning
+  - Evaluation of whether you're solving the right problem
+  - Fresh perspectives that may lead to breakthroughs
+  - Suggestions for research paths when knowledge gaps exist
 
 **When to Use**:
-- When the user asks for debugging help (regardless of exact wording)
-- When you encounter unexpected errors or behavior
-- When there's a gap between expected and actual results
-- Proactively when you identify potential issues in code
+- When debugging requires methodical thinking
+- When you've been stuck on an issue for too long
+- When you need an outside perspective to break circular thinking
+- When the complexity of the problem requires structured explanation
 
 *(You can define more abilities as you implement them!)*
 

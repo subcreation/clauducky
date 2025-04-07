@@ -1,0 +1,106 @@
+# CLAUDE.md.vision
+
+**Hey Claude Code**: This file describes the **vision** for new abilities you'll have when working with **Clauducky**. This is our aspirational document that outlines the full functionality we're building toward.
+
+---
+
+## Clauducky Abilities (Vision)
+
+We're giving you extra ways to see and analyze the project's state beyond the default CLI environment.
+
+### 1. Console Log Analysis (Browser)
+
+**What**: View the console output from a running web page.  
+- The logs are saved to `./logs/console-log.txt` or to a time-stamped file in `./logs/`.  
+
+**How**: When the user says things like "Check the browser logs" or "Look at the console," you:
+1. Locate `console-log.txt` (or the most recent time-stamped log).
+2. Parse it for errors, warnings, or notable events.
+3. Summarize the key findings, especially anything that contradicts your expectations or the user's design requirements.
+
+### 2. Screenshot Capture + Vision Analysis
+
+**What**: A script that captures a screenshot (e.g., from a running browser) and sends it to a vision-capable LLM (like OpenAI Vision or some other service).  
+- Saved to `./screenshots/` with a timestamp, e.g. `screenshot-2025-04-06T12:00:00.png`.
+
+**How**: When the user says "Take a look at the screenshot" or "Compare the UI to the design," you:
+1. Access the newly saved screenshot.
+2. Call the `vision.py` script (or a similar script) to get a textual description of the image.  
+3. Return a summary or difference analysis between the expected design and the actual screenshot if the user has provided a design reference in `./designs/`.
+
+### 3. External Code Review / Research
+
+**What**: Sometimes you need an **independent perspective** on your current code changes or a question. You can ask a second LLM (like GPT) for feedback.  
+- We have a Python script (e.g. `code_review.py` or `research.py`) that can forward your code or queries to another LLM with a fresh context.
+
+**How**: When the user says "Get an outside opinion" or "Research how to do X," you:
+1. Gather relevant snippet(s) or your question.
+2. Call `research.py` or `code_review.py`.
+3. Provide the user a summary of the second LLM's response, including your own commentary if it conflicts or aligns with your prior plan.
+
+### 4. Ducky Debug (Hypothesis Testing)
+
+**What**: The `ducky_debug.py` script helps you systematically approach debugging by generating hypotheses, potential tests, and prioritized next steps.
+
+**How**: Proactively use this approach whenever debugging is needed:
+1. Summarize your current understanding of the bug or issue.
+2. Call `ducky_debug.py` with relevant logs/screenshots or code snippets.
+3. Return the script's recommendations with clear, actionable steps.
+
+**When to Use**:
+- When the user asks for debugging help (regardless of exact wording)
+- When you encounter unexpected errors or behavior
+- When there's a gap between expected and actual results
+- Proactively when you identify potential issues in code
+
+*(You can define more abilities as you implement them!)*
+
+---
+
+## High-Level Workflow
+
+Below is an **example** of how you should combine these abilities with your natural code-generation approach:
+
+1. **Plan**  
+   - The user might say, "Let's plan the next feature."  
+   - You gather context from the user's descriptions, search relevant code, or use the "Research" script if needed.
+
+2. **Implement**  
+   - Write or modify code to implement the feature.  
+   - If you need external examples or docs, run the "Research" script to consult a search-enabled LLM or reference.
+
+3. **Look**  
+   - Once changes are done and the user (or you) has run the code in a browser, new logs are generated or a new screenshot is captured.  
+   - The user says "Look at it" or "Check logs." You parse the console logs for issues, or run the "Screenshot/Vision" script to see if it matches the design.
+
+4. **Debug**  
+   - If something's wrong, use "Ducky Debug" or "Code Review" to consult a second LLM for hypotheses or improvements.  
+   - Rerun or revise code until the result matches expectations.
+
+5. **Test & Refine**  
+   - Possibly run scripts that propose unit tests or coverage checks.  
+   - If the user requests a design comparison or code cleanup, do it.
+
+6. **Commit & Repeat**  
+   - Once you confirm everything works, commit changes. Move on to the next feature or step.
+
+Throughout this workflow, **listen** for the user's signals like "Compare screenshot," "Review the logs," or "Ask an outside LLM." Each phrase corresponds to an ability described above, letting you decide which script(s) to run behind the scenes.
+
+---
+
+## Implementation Details
+
+- **Scripts Directory**: Typically found in `./scripts/python/` or `./scripts/js/`.  
+- **Artifacts**:  
+  - Logs in `./logs/`  
+  - Screenshots in `./screenshots/`  
+  - Designs in `./designs/`  
+- **External LLM Access**: Make sure you have your `API_KEY` or relevant credentials set up in `.env` or the script's config.
+
+---
+
+## Reminders for Claude Code
+
+- You do **not** have literal slash commands here. Instead, watch for **key phrases** in the user's natural language that map to these abilities (e.g., "check logs," "analyze screenshot," "do a code review," etc.).
+- Feel free to ask clarifying questions if uncertain which ability or script the user wants to run.  
+- Always summarize the results of each script to the user in plain English—do **not** just paste raw JSON or cryptic logs. Provide actionable insights.

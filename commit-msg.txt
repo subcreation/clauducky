@@ -1,0 +1,18 @@
+Enhance Ducky Debug with proactive approach and improved functionality
+
+  This commit enhances the Ducky Debug functionality by:
+
+  1. Updating CLAUDE.md and CLAUDE.md.vision to reflect a more proactive approach to debugging
+     - The feature now triggers not just on explicit requests but whenever debugging is needed
+     - Added clearer guidance on when to use this capability
+
+  2. Improving the ducky_debug.py script with:
+     - Support for log files and expected behavior description
+     - More detailed system prompts with structured output format
+     - Detailed analysis option for complex problems
+     - Better error handling and reporting
+     - Extended command-line options
+
+  3. Updating tests to work with the enhanced implementation
+
+  This enhancement allows Claude Code to assist with debugging more effectively, without requiring explicit commands from the user.

@@ -58,31 +58,9 @@ This document provides detailed instructions on how to set up and use the Claudu
 
 ## Using the Scripts
 
-### Smart Research Script (Recommended)
+### Research Script
 
-The smart research script automatically selects the most appropriate model based on your query's complexity and provides research results.
-
-**Basic usage:**
-
-```bash
-python scripts/python/smart_research.py "Your research question here"
-```
-
-**Advanced options:**
-
-```bash
-python scripts/python/smart_research.py "Your research question here" --task complex_research --criteria quality
-```
-
-**Available options:**
-- `--task`: Type of research task (`basic_research`, `standard_research`, `complex_research`, `visual_analysis`, or `auto`)
-- `--criteria`: Selection criteria (`speed`, `cost`, `quality`, `balanced`)
-- `--provider`: Choose between `openai` or `anthropic` (default: `openai`)
-- `--output`: Format of the output, either `json` or `text` (default: `text`)
-
-### Manual Research Script
-
-For more control, you can use the original research script with manual model selection:
+The research script forwards your query to an external LLM (like OpenAI's GPT-4 or Anthropic's Claude) and returns the results:
 
 **Basic usage:**
 

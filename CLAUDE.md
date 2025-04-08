@@ -9,38 +9,40 @@
 ### 1. External Code Review / Research (IMPLEMENTED)
 
 **What**: Get an independent perspective on your current code or questions by asking a second LLM.
-- Uses the Python script `scripts/python/smart_research.py` to forward queries to another LLM.
-- Automatically selects the appropriate model based on query complexity.
+- Uses the Python script `scripts/python/research.py` to forward queries to another LLM.
+- You can choose the most appropriate model based on your query's complexity.
 
 **How**: When the user says "Get an outside opinion" or "Research how to do X," you:
 1. Gather relevant snippet(s) or your question.
-2. Use the `scripts/python/smart_research.py` script which handles model selection automatically:
-   - For general research, it will use gpt-4o (default)
-   - For complex reasoning tasks, it will select gpt-4-turbo
-   - For simple questions, it may select gpt-3.5-turbo for efficiency
+2. Use the `scripts/python/research.py` script:
+   - Choose a powerful model like gpt-4o for complex queries
+   - Consider using Claude models (via Anthropic) for certain tasks
+   - Include relevant context from files or code snippets in your query
 3. Include phrases like "search for" in the query to encourage web-based research.
 4. Provide the user a summary of the second LLM's response, including your own commentary.
 
 **Usage Example**:
 ```bash
 # IMPORTANT: Always run these commands with the virtual environment activated!
-# Basic usage (automatically selects appropriate model)
-source venv/bin/activate && python3 scripts/python/smart_research.py "What's the best approach for implementing a React state management system for a small app?"
 
-# With explicit search request
-source venv/bin/activate && python3 scripts/python/smart_research.py "Search for the latest React state management libraries and compare their features"
+# Basic usage with default model (from .env or gpt-4o)
+source venv/bin/activate && python3 scripts/python/research.py "What's the best approach for implementing a React state management system for a small app?"
 
-# Override automatic selection for specific needs
-source venv/bin/activate && python3 scripts/python/smart_research.py "Analyze the principles of functional programming" --task complex_research
+# Using a specific model
+source venv/bin/activate && python3 scripts/python/research.py "Analyze the principles of functional programming" --model gpt-4-turbo
 
-# Optimize for cost
-source venv/bin/activate && python3 scripts/python/smart_research.py "What is React?" --criteria cost
+# Using Anthropic's Claude
+source venv/bin/activate && python3 scripts/python/research.py "Compare React state management approaches" --provider anthropic --model claude-3-opus-20240229
+
+# Formatting output as text (more readable)
+source venv/bin/activate && python3 scripts/python/research.py "Search for best practices in API design" --output text
 ```
 
-**Advanced Options**:
-You can still use the original research script with manual model selection if needed:
-```bash
-source venv/bin/activate && python3 scripts/python/research.py "Your query" --model gpt-4-turbo --provider openai
+**Available Options**:
+```
+--model       Model to use (default: gpt-4o)
+--provider    Provider to use (openai or anthropic, default: openai)
+--output      Output format (json or text, default: json)
 ```
 
 ### 2. Ducky Debug (INITIAL VERSION IMPLEMENTED)

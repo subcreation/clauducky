@@ -14,8 +14,7 @@ This document outlines our development plan and milestones for Clauducky.
 - [x] README.md with project overview
 - [x] CLAUDE.md with current abilities definition
 - [x] External Research Script
-  - [x] Basic research script (`research.py`)
-  - [x] Smart research with auto model selection (`smart_research.py`)
+  - [x] Robust research script (`research.py`)
   - [x] Connect to external LLM (OpenAI/Anthropic)
   - [x] Pass queries and receive responses
   - [x] Format responses for Claude Code consumption

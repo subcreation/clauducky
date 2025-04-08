@@ -55,30 +55,36 @@ TASK_COMPLEXITY = {
     "complex": "advanced", # Concurrency, hard-to-reproduce bugs, ML/AI issues
 }
 
-# Simple .env file loader (to avoid dependency on python-dotenv)
-def load_dotenv():
-    """Load environment variables from .env file"""
-    try:
-        env_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), '.env')
-        if os.path.exists(env_path):
-            with open(env_path, 'r') as f:
-                for line in f:
-                    line = line.strip()
-                    if line and not line.startswith('#') and '=' in line:
-                        key, value = line.split('=', 1)
-                        key = key.strip()
-                        value = value.strip()
-                        # Remove quotes if present
-                        if value.startswith('"') and value.endswith('"'):
-                            value = value[1:-1]
-                        elif value.startswith("'") and value.endswith("'"):
-                            value = value[1:-1]
-                        os.environ[key] = value
-    except Exception as e:
-        print(f"Warning: Could not load .env file: {e}", file=sys.stderr)
+# Import environment loader
+try:
+    from env_loader import load_env
+except ImportError:
+    print("Warning: Could not import env_loader module, using fallback method", file=sys.stderr)
+    # Fallback .env loader if module import fails
+    def load_env():
+        """Load environment variables from .env file"""
+        try:
+            env_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), '.env')
+            if os.path.exists(env_path):
+                with open(env_path, 'r') as f:
+                    for line in f:
+                        line = line.strip()
+                        if line and not line.startswith('#') and '=' in line:
+                            key, value = line.split('=', 1)
+                            key = key.strip()
+                            value = value.strip()
+                            # Remove quotes if present
+                            if (value.startswith('"') and value.endswith('"')) or \
+                               (value.startswith("'") and value.endswith("'")):
+                                value = value[1:-1]
+                            os.environ[key] = value
+                return True
+        except Exception as e:
+            print(f"Warning: Could not load .env file: {e}", file=sys.stderr)
+            return False
 
 # Load environment variables
-load_dotenv()
+load_env()
 
 # Import libraries at module level for easier mocking in tests
 try:

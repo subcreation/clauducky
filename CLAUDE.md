@@ -23,23 +23,24 @@
 
 **Usage Example**:
 ```bash
+# IMPORTANT: Always run these commands with the virtual environment activated!
 # Basic usage (automatically selects appropriate model)
-python scripts/python/smart_research.py "What's the best approach for implementing a React state management system for a small app?"
+source venv/bin/activate && python3 scripts/python/smart_research.py "What's the best approach for implementing a React state management system for a small app?"
 
 # With explicit search request
-python scripts/python/smart_research.py "Search for the latest React state management libraries and compare their features"
+source venv/bin/activate && python3 scripts/python/smart_research.py "Search for the latest React state management libraries and compare their features"
 
 # Override automatic selection for specific needs
-python scripts/python/smart_research.py "Analyze the principles of functional programming" --task complex_research
+source venv/bin/activate && python3 scripts/python/smart_research.py "Analyze the principles of functional programming" --task complex_research
 
 # Optimize for cost
-python scripts/python/smart_research.py "What is React?" --criteria cost
+source venv/bin/activate && python3 scripts/python/smart_research.py "What is React?" --criteria cost
 ```
 
 **Advanced Options**:
 You can still use the original research script with manual model selection if needed:
 ```bash
-python scripts/python/research.py "Your query" --model gpt-4-turbo --provider openai
+source venv/bin/activate && python3 scripts/python/research.py "Your query" --model gpt-4-turbo --provider openai
 ```
 
 ### 2. Ducky Debug (INITIAL VERSION IMPLEMENTED)
@@ -81,25 +82,26 @@ python scripts/python/research.py "Your query" --model gpt-4-turbo --provider op
 **Usage Examples**:
 
 ```bash
+# IMPORTANT: Always run these commands with the virtual environment activated!
+
 # Interactive template-guided debugging (recommended)
 # Opens a template in your editor to methodically document the issue
-source venv/bin/activate
-python3 scripts/python/ducky_debug.py --interactive
+source venv/bin/activate && python3 scripts/python/ducky_debug.py --interactive
 
 # Use a pre-filled template file
-python3 scripts/python/ducky_debug.py --template my_debugging_notes.md
+source venv/bin/activate && python3 scripts/python/ducky_debug.py --template my_debugging_notes.md
 
 # Save your debugging session for later reference
-python3 scripts/python/ducky_debug.py --interactive --save debugging_session
+source venv/bin/activate && python3 scripts/python/ducky_debug.py --interactive --save debugging_session
 
 # Quick mode with code context
-python3 scripts/python/ducky_debug.py "Component not rendering correctly" --code "function UserList() { const users = getData(); return <div>{users.map(u => <User {...u} />)}</div>; }"
+source venv/bin/activate && python3 scripts/python/ducky_debug.py "Component not rendering correctly" --code "function UserList() { const users = getData(); return <div>{users.map(u => <User {...u} />)}</div>; }"
 
 # Include files from your project
-python3 scripts/python/ducky_debug.py "Server crashes after 2 hours" --log ./logs/server.log --code-file ./src/server.js
+source venv/bin/activate && python3 scripts/python/ducky_debug.py "Server crashes after 2 hours" --log ./logs/server.log --code-file ./src/server.js
 
 # Compare analysis from multiple models
-python3 scripts/python/ducky_debug.py --interactive --compare
+source venv/bin/activate && python3 scripts/python/ducky_debug.py --interactive --compare
 ```
 
 **Operational Modes**:
@@ -211,25 +213,51 @@ node scripts/js/clear-logs.js --all
 
 ## Implementation Details
 
-- **Scripts Directory**: Available scripts are in `./scripts/python/`
-- **Required Environment**: Python 3.13 running in a virtual environment:
+- **Scripts Directory**: Available scripts are in `./scripts/python/` and `./scripts/js/`
+
+- **⚠️ VIRTUAL ENVIRONMENT ACTIVATION (CRITICAL)**: 
+  
+  **ALL Python scripts MUST be run from the activated virtual environment!**
+  
   ```bash
-  # IMPORTANT: All script execution must use the virtual environment
+  # STEP 1: ACTIVATE the virtual environment FIRST (REQUIRED)
   source venv/bin/activate
+  
+  # STEP 2: Then run scripts inside the virtual environment
   python3 scripts/python/script_name.py "arguments"
+  
+  # The above steps MUST be combined in a single command like this:
+  source venv/bin/activate && python3 scripts/python/script_name.py "arguments"
   ```
+
 - **Environment Setup**: 
   - Virtual environment is already set up at `./venv/`
   - DO NOT use `pip` directly - it doesn't work on this system
   - Required packages are already installed in the venv:
     - openai
     - anthropic
+    - python-dotenv
   - Use `python3` explicitly, not just `python`
   - The system is externally managed on macOS, requiring these special steps
-- **External LLM Access**: API keys should be set in `.env` file:
+
+- **External LLM Access**: API keys must be set in a `.env` file:
+  
+  ```bash
+  # IMPORTANT: Do NOT use quotes around API keys
+  
+  # CORRECT:
+  OPENAI_API_KEY=sk-abc123
+  ANTHROPIC_API_KEY=sk-xyz789
+  
+  # INCORRECT (will cause errors):
+  OPENAI_API_KEY="sk-abc123"
+  ANTHROPIC_API_KEY='sk-xyz789'
   ```
-  OPENAI_API_KEY=your_key_here
-  ANTHROPIC_API_KEY=your_key_here
+  
+  You can create this file by copying the template:
+  ```bash
+  cp .env.example .env
+  # Then edit .env with your API keys
   ```
 
 ---

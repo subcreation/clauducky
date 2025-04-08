@@ -127,10 +127,85 @@ python3 scripts/python/ducky_debug.py --interactive --compare
 
 ---
 
+### 3. Console Log Analysis (IMPLEMENTED)
+
+**What**: Capture and analyze browser console logs from web applications.
+- Captures console.log, console.error, console.warn, and other console messages
+- Allows setting custom markers for specific events (like animation completion)
+- Provides tools for reviewing, analyzing, and cleaning up logs
+
+**How to Use**:
+1. Include the console-logger.js script in your web application
+2. Run the log server alongside your application to capture and save logs
+3. Use the check-logs.js script to analyze captured logs
+4. Use custom markers to identify specific events in your application
+
+**Setup**:
+```html
+<!-- Add console logger to your web app -->
+<script src="/path/to/scripts/js/console-logger.js"></script>
+```
+
+**Server Setup**:
+```bash
+# Start the log server (runs on port 3000 by default)
+node scripts/js/log-server.js
+
+# Or specify a custom port
+node scripts/js/log-server.js 8080
+```
+
+**Client-Side Usage**:
+```javascript
+// Mark specific events in your logs
+window.clauduckyLogs.markEvent('Data loaded successfully');
+
+// Start a new logging session (clears previous logs)
+window.clauduckyLogs.startSession('Performance Test');
+
+// End the current session and save logs
+window.clauduckyLogs.endSession('Performance Test Complete');
+
+// Manually save logs with a marker
+window.clauduckyLogs.saveWithMarker('ANIMATION_COMPLETE');
+
+// Clear all logs
+window.clauduckyLogs.clear();
+```
+
+**Analyzing Logs**:
+```bash
+# Check log summary
+node scripts/js/check-logs.js
+
+# View only errors and warnings
+node scripts/js/check-logs.js errors
+
+# View event markers
+node scripts/js/check-logs.js events
+
+# View log history
+node scripts/js/check-logs.js history
+
+# Compare two log files
+node scripts/js/check-logs.js diff 1 2
+```
+
+**Clearing Logs**:
+```bash
+# Clear older logs, keeping the 5 most recent (default)
+node scripts/js/clear-logs.js
+
+# Keep a specific number of recent logs
+node scripts/js/clear-logs.js 10
+
+# Clear all logs including the current log
+node scripts/js/clear-logs.js --all
+```
+
 ## Features In Development (Not Yet Available)
 
-1. **Console Log Analysis (Browser)** - For viewing and analyzing console output from web applications.
-2. **Screenshot Capture + Vision Analysis** - For capturing and analyzing UI screenshots.
+1. **Screenshot Capture + Vision Analysis** - For capturing and analyzing UI screenshots.
 
 ---
 

@@ -1,8 +1,16 @@
-The changes implement a comprehensive console logging system for Clauducky with:
+Here's a summary of the changes we've made:
 
-  1. Client-side console logger with event markers and session management
-  2. Node.js log server for collecting and saving logs
-  3. Utility scripts for analyzing and cleaning logs
-  4. Updated CLAUDE.md documentation with usage examples
+  1. Major changes:
+    - Removed smart_research.py script completely
+    - Updated CLAUDE.md to focus on research.py as the primary approach
+    - Simplified the workflow to let Claude Code use its intelligence for model selection
+    - Updated ROADMAP.md and docs/USAGE.md for consistency
+  2. Terminology refinement:
+    - Replaced "Get a second opinion" with more research-focused phrases
+    - Added natural language triggers like "Look up X online", "Search for information on X", "Check the docs...", "Finding working code examples
+  for..."
+    - Embraced Claude's natural language understanding rather than restricting to rigid commands
+    - Focused on reducing cognitive load for human users by allowing varied phrasings
 
-  This builds upon the concept from thought-tree-prototype but makes it more flexible for general use cases.
+  These changes make Clauducky more intuitive to use with natural language while simplifying the implementation. The approach leverages Claude's
+  intelligence for both understanding user intent and selecting appropriate models for research tasks.

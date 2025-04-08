@@ -12,7 +12,7 @@
 - Uses the Python script `scripts/python/research.py` to forward queries to another LLM.
 - You can choose the most appropriate model based on your query's complexity.
 
-**How**: When the user says "Get an outside opinion" or "Research how to do X," you:
+**How**: When the user says "Look up X online", "Check the docs…", "Finding working code examples for…", or "Research how to do X," you:
 1. Gather relevant snippet(s) or your question.
 2. Use the `scripts/python/research.py` script:
    - Choose a powerful model like gpt-4o for complex queries

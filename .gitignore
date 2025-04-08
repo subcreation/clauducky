@@ -55,4 +55,7 @@ yarn-error.log
 
 # OS specific
 .DS_Store
-Thumbs.dbthought-tree-prototype/
+Thumbs.db
+
+# Excluded repositories
+thought-tree-prototype/

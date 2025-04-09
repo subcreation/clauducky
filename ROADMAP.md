@@ -47,8 +47,34 @@ This document outlines our development plan and milestones for Clauducky.
   - [x] Unit tests for research script
   - [x] Unit tests for ducky_debug script
 
+- [ ] Research Script Improvements
+  - [ ] Rename `research.py` to `search.py` for clarity and simplicity
+  - [ ] Support both in-depth research and quick searches in a unified approach
+  - [ ] Streamline usage with clearer command-line arguments
+
 ### Timeline
 - Target completion: End of Q2 2025
+
+## Potential Future Enhancement: "Enhanced Ducky Research"
+
+**Rationale**: We've considered a more advanced approach to `research.py` that would go beyond a single query/response cycle. This could include:
+
+1. **Iterative Querying**  
+   - The script automatically performs multiple searches, refining each new query based on the previous result.
+
+2. **Structured Thinking / Checklists**  
+   - Before calling any external LLM, Claude Code follows a methodical checklist (e.g., identifying the core knowledge gap, clarifying search goals). 
+   - This ensures we "rubber-duck" the research question thoroughly, potentially solving the issue without external calls.
+
+3. **User Intervention Points**  
+   - As the script refines its questions, it could prompt the developer for confirmation or additional details before continuing. 
+   - This helps prevent runaway searches or wasted API calls.
+
+4. **Smarter Model Selection**  
+   - If needed, we may create a robust (and genuinely "smart") logic to pick a model—possibly involving a search-enabled LLM or an up-to-date local reference. 
+   - This would require ongoing maintenance and might not be necessary if Claude Code itself can already make good decisions.
+
+**When**: We'll evaluate the effectiveness of our current `research.py` approach during real projects. If we discover repeated shortcomings—like shallow queries, unnecessary costs, or incomplete info—we'll revisit these ideas.
 
 ---
 

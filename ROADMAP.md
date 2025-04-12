@@ -23,8 +23,39 @@ This document outlines our development plan and milestones for Clauducky.
   - [✓] Support for log files and expected behavior
   - [✓] Auto-select models based on problem complexity
   - [✓] Support multiple providers (OpenAI, Anthropic)
+- [x] Basic tests to verify script functionality
+  - [x] Unit tests for research script
+  - [x] Unit tests for ducky_debug script
 
-- [ ] Enhanced Ducky Debug Workflow (Priority)
+## Phase 2: Context Preservation and Process Enforcement
+**Status: In Progress**
+
+### Goals
+- Address issues with context preservation after `/compact` commands
+- Improve process enforcement and methodology adherence
+- Implement safer git workflows for Claude Code
+- Create initialization scripts for session management
+
+### Deliverables
+- [x] Context Preservation
+  - [x] Create initialization script (`init.py`) to restore context after `/compact`
+  - [x] Session state tracking with timestamps
+  - [ ] Automatic detection of context loss
+  - [ ] Interactive reorientation process
+
+- [ ] Git Workflow Safety (Priority)
+  - [ ] Create commit verification system
+    - [ ] Show diffs and require approval before committing
+    - [ ] Distinguish between verified/tested commits and experimental code
+    - [ ] Add commit tags for verified working states
+  - [ ] Implement safer commit message templates
+    - [ ] Add Clauducky attribution alongside Claude Code
+    - [ ] Option to suppress AI attribution for privacy
+  - [ ] Create "prepare commit" mode for user-managed git operations
+  - [ ] Implement automatic git backups before major changes
+  - [ ] Add clean working directory enforcement
+
+- [ ] Enhanced Ducky Debug Workflow
   - [ ] Revise ducky_debug.py with structured debugging framework:
     - [ ] Create template/form for methodically documenting the problem
     - [ ] Add sections for expected behavior, actual behavior, evidence
@@ -36,16 +67,14 @@ This document outlines our development plan and milestones for Clauducky.
     - [ ] Design prompts that specifically encourage questioning assumptions
     - [ ] Instruct model to evaluate if we're solving the right problem
     - [ ] Ensure complete relevant code context is provided for external review
-    - [ ] Focus on high-reasoning models (GPT-4o, Claude 3.7 Sonnet) to maximize insight potential
+    - [ ] Default to highest-capability models when progress stalls
+    - [ ] Add automatic escalation to more powerful models after failed attempts
     - [ ] Create clear mechanism for suggesting research paths when knowledge gaps identified
     - [ ] Add option to iterate on explanations when clarification needed
   - [ ] Integration with existing tools:
     - [ ] Import and adapt console logging from thought-tree-prototype
     - [ ] Create mechanism to include snippets of logs in explanation
     - [ ] Support attaching screenshots/visuals to debugging context
-- [x] Basic tests to verify script functionality
-  - [x] Unit tests for research script
-  - [x] Unit tests for ducky_debug script
 
 - [ ] Research Script Improvements
   - [ ] Rename `research.py` to `search.py` for clarity and simplicity
@@ -102,7 +131,31 @@ This document outlines our development plan and milestones for Clauducky.
 
 ---
 
-## Phase 3: Installation and Project Integration
+## Phase 3: Logging and Screenshot Analysis
+**Status: Planned**
+
+### Goals
+- Implement browser console logging integration
+- Create screenshot capture and analysis capabilities
+
+### Deliverables
+- [ ] Console Logging System
+  - JavaScript collector for browser logs
+  - Log storage and formatting
+  - Log analysis in Python
+- [ ] Screenshot Tools
+  - Screenshot capture script
+  - Image analysis using vision-capable LLMs
+  - Design comparison utilities
+- [ ] Updated documentation and examples
+
+### Timeline
+- Target start: Q3 2025
+- Target completion: End of Q3 2025
+
+---
+
+## Phase 4: Installation and Project Integration
 **Status: Planned**
 
 ### Goals
@@ -126,7 +179,7 @@ This document outlines our development plan and milestones for Clauducky.
 
 ---
 
-## Phase 4: Advanced Features
+## Phase 5: Advanced Features
 **Status: Future**
 
 ### Goals

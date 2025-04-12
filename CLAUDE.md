@@ -207,6 +207,81 @@ node scripts/js/clear-logs.js 10
 node scripts/js/clear-logs.js --all
 ```
 
+## Newly Implemented Features
+
+### 4. Context Preservation Tools (IMPLEMENTED)
+
+**What**: Tools to maintain Claude Code's working context with Clauducky across sessions.
+- Provides initialization script to restore context after `/compact` commands
+- Maintains session state with timestamps
+- Ensures proper loading of guidelines and methodology
+
+**When to Use**:
+- After using the `/compact` command in Claude Code
+- When starting a new Claude Code session
+- When Claude Code seems to have forgotten about Clauducky capabilities
+- When methodology adherence breaks down
+
+**Usage Examples**:
+
+```bash
+# Basic initialization (recommended after /compact)
+source venv/bin/activate && python3 scripts/python/init.py
+
+# Check if session is already initialized
+source venv/bin/activate && python3 scripts/python/init.py --check-only
+
+# Force reinitialization even if already initialized
+source venv/bin/activate && python3 scripts/python/init.py --force
+
+# Quiet mode with minimal output
+source venv/bin/activate && python3 scripts/python/init.py --quiet
+```
+
+### 5. Git Workflow Safety (IMPLEMENTED)
+
+**What**: Safer git workflows for Claude Code to prevent premature or unverified commits.
+- Shows changes and requires approval before committing
+- Adds verification tags for tested working states
+- Supports custom attributions for both Clauducky and Claude Code
+- Creates backup branches before major changes
+- Provides a separate prepare mode for user-managed commits
+
+**When to Use**:
+- Before committing changes to verify they work as expected
+- When making major changes that might need to be reverted
+- When you want to manually review and manage git commits
+- When you need to distinguish between verified and experimental states
+
+**Usage Examples**:
+
+```bash
+# Show changes and commit with verification (requires manual confirmation)
+source venv/bin/activate && python3 scripts/python/git_safe.py commit -m "Your commit message"
+
+# Mark a commit as verified working state
+source venv/bin/activate && python3 scripts/python/git_safe.py commit -m "Your commit message" --verified
+
+# Add a custom tag to the commit
+source venv/bin/activate && python3 scripts/python/git_safe.py commit -m "Your commit message" --tag "PROTOTYPE"
+
+# Stage specific files only
+source venv/bin/activate && python3 scripts/python/git_safe.py commit -m "Your commit message" --files file1.js file2.js
+
+# Stage changes but don't commit (for manual commits)
+source venv/bin/activate && python3 scripts/python/git_safe.py prepare
+
+# Create a backup branch before major changes
+source venv/bin/activate && python3 scripts/python/git_safe.py backup
+
+# Check for uncommitted changes
+source venv/bin/activate && python3 scripts/python/git_safe.py check
+```
+
+**Environment Variables**:
+- `CLAUDUCKY_ATTRIBUTION`: Set to "false" to disable Clauducky attribution in commits
+- `CLAUDE_ATTRIBUTION`: Set to "false" to disable Claude Code attribution in commits
+
 ## Features In Development (Not Yet Available)
 
 1. **Screenshot Capture + Vision Analysis** - For capturing and analyzing UI screenshots.

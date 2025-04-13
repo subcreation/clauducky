@@ -69,18 +69,21 @@ There are two ways to use Clauducky: either install individual scripts into your
    git clone https://github.com/subcreation/clauducky
    ```
 
-2. **Set up API keys**:
+2. **Run the setup script**:
    ```bash
-   cp clauducky/.env.example clauducky/.env
-   # Edit the .env file with your API keys
+   ./clauducky/scripts/setup_clauducky.sh
    ```
+   
+   This will:
+   - Create a virtual environment in the clauducky directory
+   - Install all required dependencies
+   - Create a .env file from the template
+   - Set up the logs directory
 
-3. **Activate the virtual environment and install dependencies**:
+3. **Edit your API keys**:
    ```bash
-   cd clauducky
-   python -m venv venv
-   source venv/bin/activate
-   pip install -r requirements.txt
+   # Edit the .env file with your API keys
+   nano clauducky/.env
    ```
 
 4. **Initialize with Claude Code**:
@@ -91,7 +94,32 @@ There are two ways to use Clauducky: either install individual scripts into your
 
 Claude Code will now be aware of all Clauducky capabilities and the recommended workflow.
 
-### Method 2: Individual Script Installation
+### Method 2: Use as a Git Submodule
+
+1. **Add Clauducky as a submodule**:
+   ```bash
+   git submodule add https://github.com/subcreation/clauducky.git
+   ```
+
+2. **Run the setup script**:
+   ```bash
+   ./clauducky/scripts/setup_clauducky.sh
+   ```
+
+3. **Edit your API keys**:
+   ```bash
+   # Edit the .env file with your API keys
+   nano clauducky/.env
+   ```
+
+4. **Initialize with Claude Code**:
+   ```bash
+   source clauducky/venv/bin/activate && python3 clauducky/scripts/python/init.py
+   ```
+
+> **Note**: When using as a submodule, all log files are stored in the `clauducky/logs/` directory, making Clauducky self-contained.
+
+### Method 3: Individual Script Installation
 
 1. **Copy the scripts you need**:
    ```bash

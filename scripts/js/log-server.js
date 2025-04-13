@@ -31,6 +31,7 @@ app.use((req, res, next) => {
 app.use(express.json({ limit: '10mb' }));
 
 // Define paths for logs
+// Use a path relative to clauducky directory for proper submodule usage
 const logsDir = path.join(__dirname, '../../logs');
 const currentLogPath = path.join(logsDir, 'console-log.txt');
 

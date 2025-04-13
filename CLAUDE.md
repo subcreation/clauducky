@@ -207,6 +207,9 @@ node scripts/js/clear-logs.js 10
 node scripts/js/clear-logs.js --all
 ```
 
+**Important Note About Log Files Location**:
+When integrating Clauducky as a submodule or library, all log files are stored within Clauducky's own directory structure at `clauducky/logs/`. This ensures proper isolation and avoids conflicts with your project's own logging system. All Clauducky scripts are designed to work with this structure automatically.
+
 ## Newly Implemented Features
 
 ### 4. Context Preservation Tools (IMPLEMENTED)

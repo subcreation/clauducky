@@ -17,8 +17,9 @@ const path = require('path');
 const arg = process.argv[2];
 
 // Define paths
-const currentLogPath = path.join(__dirname, '../../logs/console-log.txt');
+// Use a path relative to clauducky directory for proper submodule usage
 const logsDir = path.join(__dirname, '../../logs');
+const currentLogPath = path.join(logsDir, 'console-log.txt');
 
 // Ensure logs directory exists
 if (!fs.existsSync(logsDir)) {

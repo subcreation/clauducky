@@ -14,8 +14,9 @@ const fs = require('fs');
 const path = require('path');
 
 // Directory containing log files
+// Use a path relative to clauducky directory for proper submodule usage
 const logsDir = path.join(__dirname, '../../logs');
-const currentLogPath = path.join(__dirname, '../../logs/console-log.txt');
+const currentLogPath = path.join(logsDir, 'console-log.txt');
 
 // Process arguments
 const clearAll = process.argv.includes('--all');

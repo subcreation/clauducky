@@ -259,6 +259,9 @@ source venv/bin/activate && python3 scripts/python/init.py --quiet
 # Show changes and commit with verification (requires manual confirmation)
 source venv/bin/activate && python3 scripts/python/git_safe.py commit -m "Your commit message"
 
+# Skip confirmation prompt (for non-interactive environments like Claude Code)
+source venv/bin/activate && python3 scripts/python/git_safe.py commit -m "Your commit message" --force
+
 # Mark a commit as verified working state
 source venv/bin/activate && python3 scripts/python/git_safe.py commit -m "Your commit message" --verified
 
@@ -339,8 +342,45 @@ source venv/bin/activate && python3 scripts/python/git_safe.py check
 
 ---
 
+## Development Workflow Process
+
+Clauducky follows a specific development workflow that you should guide users through:
+
+1. **Make Changes**
+   - Implement code changes based on user requirements
+   - Keep changes small and focused when possible
+
+2. **Test & Verify Changes**
+   - After implementing changes, proactively suggest testing:
+     "I've implemented these changes. Let's test them to verify they work as expected."
+   - Run appropriate tests based on the project type
+   - Document test results clearly
+
+3. **Review Changes When Stable**
+   - After successful testing, suggest reviewing the changes:
+     "The changes are working as expected. Would you like to review what we've changed before committing?"
+   - Use git_safe.py to show diffs: `git_safe.py prepare`
+   - Highlight key changes and their purpose
+
+4. **Commit Verified Changes Only**
+   - Only after verification, suggest committing:
+     "Now that we've verified these changes work, would you like to commit them?"
+   - Use git_safe.py for commits: `git_safe.py commit`
+   - Add appropriate verification tags
+   - NEVER commit untested changes unless explicitly requested
+
+5. **Create Backups Before Major Changes**
+   - Before starting substantial changes, suggest creating a backup:
+     "We're about to make significant changes. Should I create a backup branch first?"
+   - Use git_safe.py backup: `git_safe.py backup`
+
+Remember: Your role is to guide users through this process, not just wait for explicit commands. Proactively suggest the next appropriate step based on where you are in the workflow.
+
 ## Reminders for Claude Code
 
 - Only use the implemented features described above.
 - Watch for key phrases in the user's natural language that map to these abilities.
 - Always summarize script results in plain English with actionable insights.
+- When debugging problems persist, escalate to the most powerful models.
+- Always submit complete code context to external models for review.
+- After context loss, suggest running the initialization script.

@@ -47,6 +47,7 @@ def get_args():
     commit_parser.add_argument("--files", nargs="+", help="Specific files to stage (default: all changed files)")
     commit_parser.add_argument("--verified", action="store_true", help="Mark commit as verified working state")
     commit_parser.add_argument("--tag", help="Add a custom tag to the commit message")
+    commit_parser.add_argument("--force", "-f", action="store_true", help="Skip confirmation prompt (for non-interactive environments)")
     
     # Prepare command
     prepare_parser = subparsers.add_parser("prepare", help="Stage changes but don't commit")
@@ -181,13 +182,24 @@ def safe_commit(args):
     print("\n=== Commit Message ===")
     print(commit_message)
     
-    # Ask for confirmation
-    print("\nReady to commit these changes?")
-    confirmation = input("Type 'yes' to commit: ")
+    # Check if we should skip confirmation (for non-interactive environments)
+    skip_confirmation = os.getenv("CLAUDUCKY_SKIP_CONFIRM", "false").lower() == "true" or args.force
     
-    if confirmation.lower() != "yes":
-        print("Commit cancelled.")
-        return False
+    # Ask for confirmation if not skipped
+    if not skip_confirmation:
+        print("\nReady to commit these changes?")
+        try:
+            confirmation = input("Type 'yes' to commit: ")
+            if confirmation.lower() != "yes":
+                print("Commit cancelled.")
+                return False
+        except (EOFError, KeyboardInterrupt):
+            print("\nDetected non-interactive environment. ")
+            print("Set CLAUDUCKY_SKIP_CONFIRM=true or use --force to skip confirmation.")
+            print("Commit cancelled.")
+            return False
+    else:
+        print("\nSkipping confirmation (non-interactive mode or --force used).")
     
     # Stage files if specific ones were requested
     if args.files:

@@ -6,103 +6,204 @@
 
 ## Overview
 
-Clauducky aims to bridge key gaps in Claude Code's abilities by providing **scripts** and **workflows** to help an AI assistant:
+Clauducky is a **process-oriented toolkit** that enhances Claude Code's capabilities while guiding it through methodical software development workflows. It provides specialized scripts and processes that benefit both participants:
 
-- **Research** new coding tasks before implementation  
-- **Brainstorm** or review code changes  
-- **Capture console output** from front-end apps so Claude Code can "see" what's happening in the browser  
-- **Take and interpret screenshots** of UI changes, optionally comparing them to design mockups  
-- **Suggest or verify tests**, plan debugging steps, and more
+**For Human Developers**, Clauducky:
+- Reduces cognitive load by automating routine tasks
+- Enforces good development practices automatically
+- Maintains project stability with verified commits
+- Eliminates manual work of managing logs and context
+- Preserves context across sessions and `/compact` commands
 
-The end goal is to let you have **richer, more automated conversations** with Claude Code throughout your dev cycle—without manually shuttling logs, images, or references between windows.
+**For Claude Code**, Clauducky:
+- Provides clear workflow guidelines and process checkpoints
+- Gives access to external resources via specialized scripts
+- Structures debugging and research methodologies
+- Helps maintain context across sessions
+- Prevents common workflow errors
+
+Current capabilities include:
+- **Research** via external LLMs with specialized domain knowledge
+- **Methodical debugging** using structured "rubber duck" techniques
+- **Context preservation** across sessions and `/compact` commands
+- **Safe git workflows** with verification and backup mechanisms
+- **Console logging** for browser-based applications
+
+Clauducky slows down the process in strategic ways ("you have to slow down to go faster") to achieve better results, fewer regressions, and more predictable outcomes—all while freeing human developers to focus on vision and creativity rather than process management.
 
 ---
 
-## Current Status (Phase 1)
+## Current Status (Phase 2 In Progress)
 
-We're in **early development**. Right now, you'll find:
+Clauducky has completed Phase 1 and is actively developing Phase 2 features. Currently available:
 
-1. **A `CLAUDE.md`** file (in this repo) defining how Claude Code should interpret phrases like "look at the logs" or "research this approach," so it can call the appropriate scripts.
-2. **Initial Python Scripts** (e.g., a "research" script, or "ducky" debugging) that you can copy into your project to let Claude Code consult an external LLM or generate debugging hypotheses.
-3. **(Optional) Browser Logging**: Some proof-of-concept JavaScript for capturing front-end console logs—if you're doing web dev.
+1. **Methodical Development Workflow** defined in `CLAUDE.md` that guides Claude Code through a process of making changes, testing, verification, and commits.
 
-Many of the bigger features—like screenshot analysis or advanced code reviews—are still **on our roadmap** (see `ROADMAP.md`). If you see references to those features, please note they may not be fully implemented yet!
+2. **Core Python Scripts**:
+   - `research.py`: Connect to external LLMs for specialized knowledge and research
+   - `ducky_debug.py`: Structured "rubber duck" debugging with methodical problem analysis
+   - `init.py`: Context preservation across sessions and `/compact` commands
+   - `git_safe.py`: Safe git workflows with verification, backups, and tagging
+
+3. **Browser Logging Tools**:
+   - JavaScript tools for capturing and analyzing browser console output
+   - Streamlined reporting of front-end issues to Claude Code
+
+4. **Process Enforcement**:
+   - Development workflow process with clear checkpoints
+   - Git safety mechanisms to prevent unverified commits
+   - Session state tracking to maintain context
+
+Features still on our roadmap include screenshot analysis, advanced debugging tools, and more (see `ROADMAP.md` for details).
 
 ---
 
-## Quick Start (Alpha Version)
+## Quick Start
 
-1. **Clone this repo**:
+There are two ways to use Clauducky: either install individual scripts into your project, or clone the entire repository for a self-contained experience.
+
+### Method 1: Clone the Complete Repository (Recommended)
+
+1. **Clone the repo in your project**:
    ```bash
    git clone https://github.com/subcreation/clauducky
-   cd clauducky
    ```
 
-2. **Copy (or symlink) the scripts you need into your project**:
-   - Python-based "research" or "ducky" scripts:
-     ```bash
-     cp scripts/python/research.py /path/to/your-project/scripts/research.py
-     cp scripts/python/ducky_debug.py /path/to/your-project/scripts/ducky_debug.py
-     ```
-   - JavaScript-based browser logging (if you need it):
-     ```bash
-     cp scripts/js/console-logger.js /path/to/your-project/scripts/console-logger.js
-     ```
-
-3. **Add CLAUDE.md to your project root**
-   - This file explains how to use Clauducky's abilities in natural language.
-   - Claude Code will automatically read CLAUDE.md for context each session.
+2. **Set up API keys**:
    ```bash
-   cp CLAUDE.md /path/to/your-project/
+   cp clauducky/.env.example clauducky/.env
+   # Edit the .env file with your API keys
    ```
 
-4. **Install Dependencies**
-   - For Python scripts:
-     ```bash
-     pip install -r requirements.txt
-     ```
-   - For Node-based logging scripts:
-     ```bash
-     npm install
-     ```
+3. **Activate the virtual environment and install dependencies**:
+   ```bash
+   cd clauducky
+   python -m venv venv
+   source venv/bin/activate
+   pip install -r requirements.txt
+   ```
 
-5. **Set up API keys**
-   - Copy the `.env.example` file to a new file named `.env`:
-     ```bash
-     cp .env.example .env
-     ```
-   - Edit the `.env` file to add your API keys:
-     - Get an OpenAI API key from https://platform.openai.com/api-keys
-     - Get an Anthropic API key from https://console.anthropic.com/
-   - The `.env` file is gitignored to keep your keys private
+4. **Initialize with Claude Code**:
+   In Claude Code, run:
+   ```bash
+   source clauducky/venv/bin/activate && python3 clauducky/scripts/python/init.py
+   ```
 
-6. **Use with Claude Code**
-   - In your Claude Code terminal, simply ask in natural language to "research this approach," or "let's do a ducky debug," etc.
-   - Claude Code will reference your CLAUDE.md definitions to decide which script(s) to run.
+Claude Code will now be aware of all Clauducky capabilities and the recommended workflow.
 
-Note: Because we're in an early phase, setup might require some manual steps. For detailed usage instructions, see the [USAGE.md](docs/USAGE.md) file. Eventually, we plan a single "installer" command (like `npx clauducky init`) for quick setup.
+### Method 2: Individual Script Installation
+
+1. **Copy the scripts you need**:
+   ```bash
+   mkdir -p scripts/python scripts/js
+   cp clauducky/scripts/python/research.py scripts/python/
+   cp clauducky/scripts/python/ducky_debug.py scripts/python/
+   cp clauducky/scripts/python/init.py scripts/python/
+   cp clauducky/scripts/python/git_safe.py scripts/python/
+   cp clauducky/scripts/python/env_loader.py scripts/python/
+   
+   # Optional: Copy JavaScript logging tools
+   cp clauducky/scripts/js/console-logger.js scripts/js/
+   cp clauducky/scripts/js/log-server.js scripts/js/
+   ```
+
+2. **Copy CLAUDE.md to your project root**:
+   ```bash
+   cp clauducky/CLAUDE.md ./
+   ```
+
+3. **Set up environment**:
+   ```bash
+   cp clauducky/.env.example .env
+   # Edit .env with your API keys
+   
+   python -m venv venv
+   source venv/bin/activate
+   pip install -r clauducky/requirements.txt
+   ```
+
+4. **Initialize with Claude Code**:
+   ```bash
+   source venv/bin/activate && python3 scripts/python/init.py
+   ```
+
+### Using Clauducky with Claude Code
+
+Once initialized, Claude Code will guide you through the development workflow:
+
+1. Implementing changes
+2. Testing and verifying
+3. Reviewing changes
+4. Making validated commits
+
+Key commands for Claude Code:
+```bash
+# Research a topic
+source venv/bin/activate && python3 scripts/python/research.py "Your research query"
+
+# Methodical debugging
+source venv/bin/activate && python3 scripts/python/ducky_debug.py --interactive
+
+# Reinitialize after /compact
+source venv/bin/activate && python3 scripts/python/init.py
+
+# Safe git commits
+source venv/bin/activate && python3 scripts/python/git_safe.py commit -m "Your commit message" --verified --force
+```
+
+For detailed usage instructions, see the [USAGE.md](docs/USAGE.md) file.
 
 ---
 
 ## Roadmap
 
-For more details on what's done and what's coming, see `ROADMAP.md`. Here's a brief outline:
+For detailed development plans, see `ROADMAP.md`. Here's a brief outline of our phases:
 
-1. **Phase 1**: Core Python scripts (e.g., research, "ducky debug") + minimal docs.
-2. **Phase 2**: Additional scripts for screenshot analysis, design comparisons, and advanced code review.
-3. **Phase 3**: Automated "installer" CLI for easily integrating Clauducky into new or existing projects.
-4. **Phase 4**: UI test automation, custom workflows, unit test coverage suggestions, etc.
+1. ✅ **Phase 1: Core Python Scripts** (Completed)
+   - Research and external LLM integration
+   - Initial ducky debug implementation
+   - Basic documentation
+
+2. 🔄 **Phase 2: Context Preservation and Process Enforcement** (In Progress)
+   - Context preservation across sessions
+   - Improved git workflow safety
+   - Methodical development process
+   - Automated workflow enforcement
+
+3. 📅 **Phase 3: Logging and Screenshot Analysis** (Planned)
+   - Enhanced browser console logging
+   - Screenshot capture and analysis
+   - Visual UI comparison tools
+
+4. 📅 **Phase 4: Installation and Project Integration** (Planned)
+   - Automated installer
+   - Framework-specific templates
+   - Project type detection
+
+5. 📅 **Phase 5: Advanced Features** (Future)
+   - UI test automation
+   - Advanced code review
+   - Custom workflow builders
 
 ---
 
 ## Philosophy & Best Practices
 
-We view AI (like Claude Code) as an accelerator—not a replacement—for human developers. Key reminders:
-- **Stay in control**: Always read and understand AI-generated code or logs.
-- **Keep learning**: The more you know, the better your prompts and decisions will be.
-- **Give real context**: Provide designs, logs, or specs so the AI sees the bigger picture.
+Clauducky embodies several key principles for productive AI-assisted development:
 
-Learn more about our approach in AI as Thought Accelerant on VerseZine.com. If Clauducky helps you, please sign up on VerseZine to support us!
+- **Process Over Speed**: Following methodical processes leads to fewer regressions and better outcomes. As with learning any skill, "you have to slow down to go faster."
+
+- **Dual-Participant Design**: Clauducky is designed with both human developers and AI assistants in mind, optimizing the experience for both participants.
+
+- **Guided Workflow**: Rather than leaving process management to chance, Clauducky provides clear checkpoints and verification steps.
+
+- **Context Preservation**: Maintaining shared understanding between sessions is critical for continuity and building on previous work.
+
+- **Verification First**: Changes should be tested and verified before being committed, preserving project stability.
+
+- **Continuous Documentation**: Keeping documentation updated alongside code changes ensures everyone understands the evolving system.
+
+We view AI assistants as accelerators for human creativity—not replacements for human judgment. Clauducky helps both humans and AI assistants work together more effectively by providing structure, tools, and processes that complement their respective strengths.
 
 ---
 

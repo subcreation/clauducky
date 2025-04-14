@@ -187,28 +187,28 @@ node scripts/js/check-logs.js errors
 
 # View event markers
 node scripts/js/check-logs.js events
-
-# View log history
-node scripts/js/check-logs.js history
-
-# Compare two log files
-node scripts/js/check-logs.js diff 1 2
 ```
 
-**Clearing Logs**:
+**Managing Logs**:
 ```bash
-# Clear older logs, keeping the 5 most recent (default)
-node scripts/js/clear-logs.js
+# Clear the current log
+node scripts/js/check-logs.js clear
 
-# Keep a specific number of recent logs
-node scripts/js/clear-logs.js 10
+# View the previous log
+node scripts/js/check-logs.js previous
 
-# Clear all logs including the current log
-node scripts/js/clear-logs.js --all
+# Compare current and previous logs
+node scripts/js/check-logs.js compare
 ```
 
-**Important Note About Log Files Location**:
-When integrating Clauducky as a submodule or library, all log files are stored within Clauducky's own directory structure at `clauducky/logs/`. This ensures proper isolation and avoids conflicts with your project's own logging system. All Clauducky scripts are designed to work with this structure automatically.
+**About the Logging System**:
+Clauducky uses a simple logging system that maintains only two log files:
+- `console-log.txt`: The current log from the most recent run
+- `previous-log.txt`: The log from the previous run
+
+This approach eliminates the need for complex log management and ensures that you always have access to both the current and previous state for troubleshooting.
+
+All logs are stored within Clauducky's own directory structure at `clauducky/logs/` when used as a submodule, ensuring proper isolation from your project's logging system.
 
 ## Newly Implemented Features
 

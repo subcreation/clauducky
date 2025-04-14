@@ -51,17 +51,27 @@ app.post('/api/save-logs', (req, res) => {
   const marker = req.body.marker || null;
   
   try {
-    // Create timestamp for archived log
-    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-    const archivedLogPath = path.join(logsDir, `log-${timestamp}.txt`);
+    // Before overwriting current log, save it as previous log
+    const previousLogPath = path.join(logsDir, 'previous-log.txt');
     
-    // Save to archived log file
-    fs.writeFileSync(archivedLogPath, logContent);
+    // If current log exists, move it to previous
+    if (fs.existsSync(currentLogPath)) {
+      try {
+        // Read current log content
+        const currentContent = fs.readFileSync(currentLogPath, 'utf8');
+        // Only save as previous if there's actual content
+        if (currentContent.trim().length > 0) {
+          fs.writeFileSync(previousLogPath, currentContent);
+          console.log('Current log saved as previous-log.txt');
+        }
+      } catch (err) {
+        console.error('Error saving previous log:', err.message);
+      }
+    }
     
-    // Update current log file
+    // Save as the current log file
     fs.writeFileSync(currentLogPath, logContent);
-    
-    console.log(`Saved log to ${archivedLogPath} and updated current log`);
+    console.log('Updated current log file');
     
     // If this is a session end or other marker, log it
     if (marker) {

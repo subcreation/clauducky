@@ -241,13 +241,16 @@ This document outlines our development plan and milestones for Clauducky.
   - Prioritize using the most advanced GPT model for reasoning tasks (not another Claude model)
   - Make model selection explicit and transparent
 
-- [ ] Fix Ducky Debug Methodology
+- [ ] Fix Ducky Debug Methodology - CRITICAL PRIORITY
+  - Implement the planned Enhanced Ducky Debug Workflow immediately
   - Enforce methodical problem-solving approach (not superficial summaries)
   - REQUIRE providing complete relevant code and logs for analysis
-  - Prevent Claude from skipping steps in the analysis process
-  - Force attention to key clues identified by the user
-  - Implement proper template enforcement regardless of invocation method
-  - Add checks to verify the template has been properly filled in
+  - Force Claude to identify and focus on key clues provided by users
+  - Implement proper template enforcement REGARDLESS of how ducky_debug.py is invoked
+  - Make template completion MANDATORY - do not allow shortcuts
+  - ADD PROOF that all sections have been completed before proceeding
+  
+  NOTE: This is especially urgent because IT WAS ALREADY PLANNED as part of the Phase 2 "Enhanced Ducky Debug Workflow" features but was NEVER IMPLEMENTED despite being reported as an issue previously
 
 - [ ] Improve Research Script
   - Add explicit prompting to force external search behavior

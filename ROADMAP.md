@@ -241,6 +241,14 @@ This document outlines our development plan and milestones for Clauducky.
   - Prioritize using the most advanced GPT model for reasoning tasks (not another Claude model)
   - Make model selection explicit and transparent
 
+- [ ] Fix Ducky Debug Methodology
+  - Enforce methodical problem-solving approach (not superficial summaries)
+  - REQUIRE providing complete relevant code and logs for analysis
+  - Prevent Claude from skipping steps in the analysis process
+  - Force attention to key clues identified by the user
+  - Implement proper template enforcement regardless of invocation method
+  - Add checks to verify the template has been properly filled in
+
 - [ ] Improve Research Script
   - Add explicit prompting to force external search behavior
   - Modify prompt to require checking current information

@@ -218,6 +218,49 @@ This document outlines our development plan and milestones for Clauducky.
 
 ---
 
+## Critical Bugs and Fixes
+**Status: URGENT - BLOCKING WORK**
+
+### Goals
+- Fix critical issues with API key detection and model selection
+- Improve script naming and user experience
+- Enhance research capabilities
+
+### Deliverables
+- [ ] Fix API Key Detection
+  - Modify all scripts to check for API keys in multiple locations:
+    - The clauducky directory itself
+    - One level up (parent project directory)
+    - Current working directory
+  - Create clear error messages when keys aren't found
+  - Document the API key location requirements
+
+- [ ] Fix Model Selection
+  - Update ducky_debug.py to ALWAYS use the most capable model by default
+  - Remove "auto" selection that defaults to less capable models
+  - Prioritize using the most advanced GPT model for reasoning tasks (not another Claude model)
+  - Make model selection explicit and transparent
+
+- [ ] Improve Research Script
+  - Add explicit prompting to force external search behavior
+  - Modify prompt to require checking current information
+  - Prevent answering from memory without searching
+  - Add clear "searching the web" indication in output
+
+- [ ] Script Naming Clarity
+  - Rename setup_clauducky.sh to first_time_setup.sh or install_dependencies.sh
+  - Make script purpose self-explanatory without requiring documentation
+  - Clearly distinguish between setup (one-time) and initialization (context restoration)
+
+- [ ] Documentation Updates
+  - Add troubleshooting guide for common issues
+  - Create clear guidance on API key configuration
+  - Provide explicit examples of correct usage
+
+### Timeline
+- Target start: IMMEDIATE - BLOCKING ALL OTHER WORK
+- Target completion: HIGHEST PRIORITY - MUST BE FIXED BEFORE ANY OTHER DEVELOPMENT
+
 ## Phase 5: Advanced Features
 **Status: Future**
 
